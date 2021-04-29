@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Sistema de parqueadero</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="text_welcome">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>771</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>34</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Bienvenido al sistema de parqueadero</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="text_instructions">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>520</y>
+      <width>471</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Porfavor seleccione una de las pestañas en la esquina superior</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="img_parking_symbol">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>90</y>
+      <width>401</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>parking_lot_symbol.jpg</pixmap>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_parking_lot">
+    <property name="title">
+     <string>Parqueadero</string>
+    </property>
+    <addaction name="action_add_parking_lot"/>
+   </widget>
+   <widget class="QMenu" name="menu_Cars">
+    <property name="title">
+     <string>Carros</string>
+    </property>
+    <addaction name="action_add_car"/>
+    <addaction name="action_search_car"/>
+    <addaction name="action_add_cars"/>
+   </widget>
+   <addaction name="menu_parking_lot"/>
+   <addaction name="menu_Cars"/>
+  </widget>
+  <action name="action_add_parking_lot">
+   <property name="text">
+    <string>Añadir parqueadero</string>
+   </property>
+  </action>
+  <action name="action_add_car">
+   <property name="text">
+    <string>Añadir carro</string>
+   </property>
+  </action>
+  <action name="actionPor_placa">
+   <property name="text">
+    <string>Por placa</string>
+   </property>
+  </action>
+  <action name="action_search_car">
+   <property name="text">
+    <string>Buscar carro</string>
+   </property>
+  </action>
+  <action name="action_add_cars">
+   <property name="text">
+    <string>Mostrar carros</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
