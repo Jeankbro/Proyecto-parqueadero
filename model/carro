@@ -1,0 +1,30 @@
+class Car():
+    def __init__(self, car_brand, car_type, time):
+        self.__car_brand = car_brand
+        self.__car_type = car_type
+        self.__time = time
+
+    @property
+    def car_brand(self):
+        return self.__car_brand
+
+    @car_brand.setter
+    def car_brand(self, car_brand):
+        self.__car_brand = car_brand
+
+    @property
+    def car_type(self):
+        return self.__car_type
+
+    @car_type.setter
+    def car_type(self, car_type):
+        self.__car_type = car_type
+
+    @property
+    def doctor_specialty(self):
+        return self.__time
+
+    @doctor_specialty.setter
+    def doctor_specialty(self, doctor_specialty):
+        self.__time = time
+
