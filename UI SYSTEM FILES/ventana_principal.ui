@@ -84,17 +84,20 @@
      <string>Parqueadero</string>
     </property>
     <addaction name="action_add_parking_lot"/>
+    <addaction name="action_view_fees"/>
    </widget>
-   <widget class="QMenu" name="menu_Cars">
+   <widget class="QMenu" name="menu_cars">
     <property name="title">
      <string>Carros</string>
     </property>
     <addaction name="action_add_car"/>
     <addaction name="action_search_car"/>
     <addaction name="action_add_cars"/>
+    <addaction name="action_delete_car"/>
+    <addaction name="action_view_gains"/>
    </widget>
    <addaction name="menu_parking_lot"/>
-   <addaction name="menu_Cars"/>
+   <addaction name="menu_cars"/>
   </widget>
   <action name="action_add_parking_lot">
    <property name="text">
@@ -119,6 +122,26 @@
   <action name="action_add_cars">
    <property name="text">
     <string>Mostrar carros</string>
+   </property>
+  </action>
+  <action name="action_view_fees">
+   <property name="text">
+    <string>Ver tarifas</string>
+   </property>
+  </action>
+  <action name="actionEliminar_carro">
+   <property name="text">
+    <string>Eliminar carro</string>
+   </property>
+  </action>
+  <action name="action_delete_car">
+   <property name="text">
+    <string>Eliminar carro</string>
+   </property>
+  </action>
+  <action name="action_view_gains">
+   <property name="text">
+    <string>Ver ganancias</string>
    </property>
   </action>
  </widget>
