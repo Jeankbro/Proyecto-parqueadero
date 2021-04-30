@@ -10,23 +10,27 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from UI import car_info_window
+from PyQt5.QtWidgets import QMessageBox
+
 
 class Ui_car_search_form(object):
     def setupUi(self, car_search_form):
         car_search_form.setObjectName("car_search_form")
         car_search_form.resize(335, 107)
-        self.instructions_search_doctor = QtWidgets.QLabel(car_search_form)
-        self.instructions_search_doctor.setGeometry(QtCore.QRect(10, 10, 291, 16))
-        self.instructions_search_doctor.setObjectName("instructions_search_doctor")
+        self.instructions_search_car = QtWidgets.QLabel(car_search_form)
+        self.instructions_search_car.setGeometry(QtCore.QRect(10, 10, 291, 16))
+        self.instructions_search_car.setObjectName("instructions_search_car")
         self.text_id = QtWidgets.QLabel(car_search_form)
         self.text_id.setGeometry(QtCore.QRect(10, 40, 31, 16))
         self.text_id.setObjectName("text_id")
         self.id = QtWidgets.QLineEdit(car_search_form)
         self.id.setGeometry(QtCore.QRect(50, 40, 241, 20))
         self.id.setObjectName("id")
-        self.button_search_doctor_name = QtWidgets.QPushButton(car_search_form)
-        self.button_search_doctor_name.setGeometry(QtCore.QRect(250, 80, 71, 23))
-        self.button_search_doctor_name.setObjectName("button_search_doctor_name")
+        self.button_search_car_id = QtWidgets.QPushButton(car_search_form)
+        self.button_search_car_id.setGeometry(QtCore.QRect(250, 80, 71, 23))
+        self.button_search_car_id.setObjectName("button_search_car_id")
+        self.button_search_car_id.clicked.connect(self.search_car_id)
 
         self.retranslateUi(car_search_form)
         QtCore.QMetaObject.connectSlotsByName(car_search_form)
@@ -34,6 +38,27 @@ class Ui_car_search_form(object):
     def retranslateUi(self, car_search_form):
         _translate = QtCore.QCoreApplication.translate
         car_search_form.setWindowTitle(_translate("car_search_form", "Buscar carro por placa"))
-        self.instructions_search_doctor.setText(_translate("car_search_form", "Por favor ingre la placa del carro que busca:"))
+        self.instructions_search_car.setText(_translate("car_search_form", "Por favor ingre la placa del carro que busca:"))
         self.text_id.setText(_translate("car_search_form", "Placa"))
-        self.button_search_doctor_name.setText(_translate("car_search_form", "Buscar"))
+        self.button_search_car_id.setText(_translate("car_search_form", "Buscar"))
+
+    def show_message(self, message, type_message):
+        msg = QMessageBox()
+        msg.setText(message)
+        msg.setIcon(type_message)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        retval = msg.exec_()
+
+    def search_car_id(self):
+        car_id = self.id.text().strip()
+
+        if not car_id:
+            self.show_message("No ha ingresado una placa, por favor intentelo de nuevo.", QMessageBox.Critical)
+        else:
+            self.show_car_window = QtWidgets.QMainWindow()
+            self.ui_show_car = car_info_window.Ui_car_info_window()
+            self.ui_show_car.setupUi(self.show_car_window)
+            self.ui_show_car.get_car_by_id(car_id)
+            self.show_car_window.show()
+
+            # pendiente añadir controladores de info

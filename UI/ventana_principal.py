@@ -10,8 +10,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+from PyQt5.QtWidgets import QMessageBox
 
-from UI import parking_lot_form, car_form, search_car_id
+from UI import parking_lot_form, car_form, search_car_id, fees_info, delete_car, cars_info_window
 
 
 class Ui_MainWindow(object):
@@ -56,6 +57,7 @@ class Ui_MainWindow(object):
 
         self.action_add_parking_lot = QtWidgets.QAction(MainWindow)
         self.action_add_parking_lot.setObjectName("action_add_parking_lot")
+        self.action_add_parking_lot.triggered.connect(self.show_add_parking_lot_form)
 
         self.action_add_car = QtWidgets.QAction(MainWindow)
         self.action_add_car.setObjectName("action_add_car")
@@ -65,25 +67,29 @@ class Ui_MainWindow(object):
         self.action_search_car.setObjectName("action_search_car")
         self.action_search_car.triggered.connect(self.show_car_search_id_form)
 
-        self.action_add_cars = QtWidgets.QAction(MainWindow)
-        self.action_add_cars.setObjectName("action_add_cars")
+        self.action_view_cars = QtWidgets.QAction(MainWindow)
+        self.action_view_cars.setObjectName("action_add_cars")
+        self.action_view_cars.triggered.connect(self.show_cars)
 
         self.action_view_fees = QtWidgets.QAction(MainWindow)
         self.action_view_fees.setObjectName("action_view_fees")
+        self.action_view_fees.triggered.connect(self.show_fees)
 
         self.action_delete_car = QtWidgets.QAction(MainWindow)
         self.action_delete_car.setObjectName("action_delete_car")
+        self.action_delete_car.triggered.connect(self.show_car_delete_form)
 
         self.action_view_gains = QtWidgets.QAction(MainWindow)
         self.action_view_gains.setObjectName("action_view_gains")
+        self.action_view_gains.triggered.connect(self.show_gains)
 
         self.menu_parking_lot.addAction(self.action_add_parking_lot)
         self.menu_parking_lot.addAction(self.action_view_fees)
-        self.menu_parking_lot.triggered.connect(self.show_add_parking_lot_form)
+
 
         self.menu_cars.addAction(self.action_add_car)
         self.menu_cars.addAction(self.action_search_car)
-        self.menu_cars.addAction(self.action_add_cars)
+        self.menu_cars.addAction(self.action_view_cars)
         self.menu_cars.addAction(self.action_delete_car)
         self.menu_cars.addAction(self.action_view_gains)
 
@@ -104,7 +110,7 @@ class Ui_MainWindow(object):
         self.action_add_parking_lot.setText(_translate("MainWindow", "Añadir parqueadero"))
         self.action_add_car.setText(_translate("MainWindow", "Añadir carro"))
         self.action_search_car.setText(_translate("MainWindow", "Buscar carro"))
-        self.action_add_cars.setText(_translate("MainWindow", "Mostrar carros"))
+        self.action_view_cars.setText(_translate("MainWindow", "Mostrar carros"))
         self.action_view_fees.setText(_translate("MainWindow", "Ver tarifas"))
         self.action_delete_car.setText(_translate("MainWindow", "Eliminar carro"))
         self.action_view_gains.setText(_translate("MainWindow", "Ver ganancias"))
@@ -127,6 +133,34 @@ class Ui_MainWindow(object):
         self.ui_search_car_id = search_car_id.Ui_car_search_form()
         self.ui_search_car_id.setupUi(self.search_car_id_window)
         self.search_car_id_window.show()
+
+    def show_cars(self):
+        self.show_cars_window = QtWidgets.QMainWindow()
+        self.ui_show_cars = cars_info_window.Ui_cars_info_window()
+        self.ui_show_cars.setupUi(self.show_cars_window)
+        self.show_cars_window.show()
+
+    def show_fees(self):
+        self.fees_window = QtWidgets.QMainWindow()
+        self.ui_fees = fees_info.Ui_fees_info()
+        self.ui_fees.setupUi(self.fees_window)
+        self.fees_window.show()
+
+    def show_car_delete_form(self):
+        self.car_delete_window = QtWidgets.QMainWindow()
+        self.ui_car_delete = delete_car.Ui_car_delete_form()
+        self.ui_car_delete.setupUi(self.car_delete_window)
+        self.car_delete_window.show()
+
+    def show_gains(self):
+        self.show_message("Las ganancias hasta ahora son de: ", QMessageBox.Information)
+
+    def show_message(self, message, type_message):
+        msg = QMessageBox()
+        msg.setText(message)
+        msg.setIcon(type_message)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        retval = msg.exec_()
 
 
 if __name__ == "__main__":

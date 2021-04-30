@@ -34,6 +34,6 @@ class Ui_car_delete_form(object):
     def retranslateUi(self, car_delete_form):
         _translate = QtCore.QCoreApplication.translate
         car_delete_form.setWindowTitle(_translate("car_delete_form", "Eliminar carro"))
-        self.instructions_delete_car.setText(_translate("car_delete_form", "Por favor ingrela placa del carro a eliminar:"))
+        self.instructions_delete_car.setText(_translate("car_delete_form", "Por favor ingresa la placa del carro a eliminar:"))
         self.text_id.setText(_translate("car_delete_form", "Placa"))
         self.button_delete_car.setText(_translate("car_delete_form", "Eliminar"))
