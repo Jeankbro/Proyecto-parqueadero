@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 
 
 class Ui_add_parking_lot_form(object):
@@ -32,6 +33,7 @@ class Ui_add_parking_lot_form(object):
         self.button_add_parking_lot = QtWidgets.QPushButton(self.parking_lot_info)
         self.button_add_parking_lot.setGeometry(QtCore.QRect(264, 100, 111, 23))
         self.button_add_parking_lot.setObjectName("button_add_parking_lot")
+        self.button_add_parking_lot.clicked.connect(self.get_parking_lot_name)
 
         self.retranslateUi(add_parking_lot_form)
         QtCore.QMetaObject.connectSlotsByName(add_parking_lot_form)
@@ -43,3 +45,20 @@ class Ui_add_parking_lot_form(object):
         self.text_hospital_name.setText(_translate("add_parking_lot_form", "Nombre del parqueadero"))
         self.instructions_add_parking_lot.setText(_translate("add_parking_lot_form", "Por favor ingrese el nombre del parqueadero:"))
         self.button_add_parking_lot.setText(_translate("add_parking_lot_form", "Añadir parqueadero"))
+
+    def show_message(self, message, type_message):
+        msg = QMessageBox()
+        msg.setText(message)
+        msg.setIcon(type_message)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        retval = msg.exec_()
+
+    def get_parking_lot_name(self):
+        parking_lot_name = self.parking_lot_name.text().strip()
+
+        if not parking_lot_name:
+            self.show_message("El parqueadero no pudo ser agregado, intente de nuevo.", QMessageBox.Critical)
+        else:
+            self.show_message("¡parqueadero agregado!", QMessageBox.Information)
+            #controller_hospital.create_hospital(name=hospital_name)
+            self.parking_lot_name.clear()

@@ -9,6 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+
+from controllers import controller_cars
 
 
 class Ui_add_car_form(object):
@@ -42,6 +45,7 @@ class Ui_add_car_form(object):
         self.button_add_car = QtWidgets.QPushButton(self.car_info)
         self.button_add_car.setGeometry(QtCore.QRect(240, 170, 91, 23))
         self.button_add_car.setObjectName("button_add_car")
+        self.button_add_car.clicked.connect(self.get_car_info)
 
         self.retranslateUi(add_car_form)
         QtCore.QMetaObject.connectSlotsByName(add_car_form)
@@ -55,3 +59,24 @@ class Ui_add_car_form(object):
         self.text_car_type.setText(_translate("add_car_form", "Tipo de carro"))
         self.text_id.setText(_translate("add_car_form", "Placa"))
         self.button_add_car.setText(_translate("add_car_form", "Añadir carro"))
+
+    def show_message(self, message, type_message):
+        msg = QMessageBox()
+        msg.setText(message)
+        msg.setIcon(type_message)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        retval = msg.exec_()
+
+    def get_car_info(self):
+        car_brand = self.car_brand.text().strip()
+        car_type = self.car_type.text().strip()
+        id = self.id.text().strip()
+
+        if not (car_brand and car_type and id):
+            self.show_message("El carro no pudo ser agregado, intente de nuevo.", QMessageBox.Critical)
+        else:
+            self.show_message("El carro ha sido agregado!", QMessageBox.Information)
+            controller_cars.create_car(brand=car_brand, type=car_type, id=id)
+            self.car_brand.clear()
+            self.car_type.clear()
+            self.id.clear()

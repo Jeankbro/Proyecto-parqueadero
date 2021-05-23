@@ -55,10 +55,8 @@ class Ui_car_search_form(object):
         if not car_id:
             self.show_message("No ha ingresado una placa, por favor intentelo de nuevo.", QMessageBox.Critical)
         else:
-            self.show_car_window = QtWidgets.QMainWindow()
-            self.ui_show_car = car_info_window.Ui_car_info_window()
-            self.ui_show_car.setupUi(self.show_car_window)
-            self.ui_show_car.get_car_by_id(car_id)
-            self.show_car_window.show()
-
-            # pendiente añadir controladores de info
+            self.car_window_table = QtWidgets.QMainWindow()
+            self.ui_car_window= car_info_window.Ui_car_info_window()
+            self.ui_car_window.setupUi(self.car_window_table)
+            self.ui_car_window.get_car_by_id(car_id)
+            self.car_window_table.show()
