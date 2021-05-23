@@ -9,6 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+
+from controllers import controller_cars, controller_parking_lot
 
 
 class Ui_car_delete_form(object):
@@ -27,6 +30,7 @@ class Ui_car_delete_form(object):
         self.button_delete_car = QtWidgets.QPushButton(car_delete_form)
         self.button_delete_car.setGeometry(QtCore.QRect(250, 80, 71, 23))
         self.button_delete_car.setObjectName("button_delete_car")
+        self.button_delete_car.clicked.connect(self.delete_car)
 
         self.retranslateUi(car_delete_form)
         QtCore.QMetaObject.connectSlotsByName(car_delete_form)
@@ -37,3 +41,22 @@ class Ui_car_delete_form(object):
         self.instructions_delete_car.setText(_translate("car_delete_form", "Por favor ingresa la placa del carro a eliminar:"))
         self.text_id.setText(_translate("car_delete_form", "Placa"))
         self.button_delete_car.setText(_translate("car_delete_form", "Eliminar"))
+
+    def show_message(self, message, type_message):
+        msg = QMessageBox()
+        msg.setText(message)
+        msg.setIcon(type_message)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        retval = msg.exec_()
+
+    def delete_car(self):
+        car_id = self.id.text().strip()
+        if not car_id:
+            self.show_message("El carro no pudo ser eliminado, intente de nuevo!", QMessageBox.Critical)
+        else:
+            self.show_message("El carro ha sido eliminado!", QMessageBox.Information)
+            self.id.clear()
+            total = controller_cars.payout(car_id)
+            self.show_message("El total a pagar es de: " + str(total) + "!", QMessageBox.Information)
+            controller_cars.delete_car(car_id)
+            controller_parking_lot.add_money(total)

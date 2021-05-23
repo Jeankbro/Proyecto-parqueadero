@@ -13,6 +13,7 @@ import sys
 from PyQt5.QtWidgets import QMessageBox
 
 from UI import parking_lot_form, car_form, search_car_id, fees_info, delete_car, cars_info_window
+from controllers import controller_parking_lot
 
 
 class Ui_MainWindow(object):
@@ -138,6 +139,7 @@ class Ui_MainWindow(object):
         self.show_cars_window = QtWidgets.QMainWindow()
         self.ui_show_cars = cars_info_window.Ui_cars_info_window()
         self.ui_show_cars.setupUi(self.show_cars_window)
+        self.ui_show_cars.load_cars()
         self.show_cars_window.show()
 
     def show_fees(self):
@@ -153,7 +155,7 @@ class Ui_MainWindow(object):
         self.car_delete_window.show()
 
     def show_gains(self):
-        self.show_message("Las ganancias hasta ahora son de: ", QMessageBox.Information)
+        self.show_message("Las ganancias hasta ahora son de: " + str(controller_parking_lot.parking_lot.money), QMessageBox.Information)
 
     def show_message(self, message, type_message):
         msg = QMessageBox()

@@ -9,7 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 
+from controllers import controller_parking_lot
 
 class Ui_cars_info_window(object):
     def setupUi(self, cars_info_window):
@@ -21,8 +23,11 @@ class Ui_cars_info_window(object):
         self.cars_info_table = QtWidgets.QTableWidget(self.cars_info_section)
         self.cars_info_table.setGeometry(QtCore.QRect(20, 30, 701, 191))
         self.cars_info_table.setObjectName("cars_info_table")
-        self.cars_info_table.setColumnCount(5)
-        self.cars_info_table.setRowCount(0)
+        self.cars_info_table.setColumnCount(4)
+
+        amount_of_cars = controller_parking_lot.amount_of_cars()
+
+        self.cars_info_table.setRowCount(amount_of_cars)
         item = QtWidgets.QTableWidgetItem()
         self.cars_info_table.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -31,8 +36,6 @@ class Ui_cars_info_window(object):
         self.cars_info_table.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.cars_info_table.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.cars_info_table.setHorizontalHeaderItem(4, item)
 
         self.retranslateUi(cars_info_window)
         QtCore.QMetaObject.connectSlotsByName(cars_info_window)
@@ -49,5 +52,27 @@ class Ui_cars_info_window(object):
         item.setText(_translate("cars_info_window", "Placa"))
         item = self.cars_info_table.horizontalHeaderItem(3)
         item.setText(_translate("cars_info_window", "Fecha de ingreso"))
-        item = self.cars_info_table.horizontalHeaderItem(4)
-        item.setText(_translate("cars_info_window", "Tiempo elapsado"))
+
+    def show_message(self, message, type_message):
+        msg = QMessageBox()
+        msg.setText(message)
+        msg.setIcon(type_message)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        retval = msg.exec_()
+
+    def load_data(self, car, position):
+        if car is None:
+            self.show_message("El carro no pudo ser encontrado(a), intente de nuevo.", QMessageBox.Critical)
+        else:
+            self.cars_info_table.setItem(position, 0, QtWidgets.QTableWidgetItem(str(car.car_brand)))
+            self.cars_info_table.setItem(position, 1, QtWidgets.QTableWidgetItem(str(car.car_type)))
+            self.cars_info_table.setItem(position, 2, QtWidgets.QTableWidgetItem(str(car.car_id)))
+            self.cars_info_table.setItem(position, 3, QtWidgets.QTableWidgetItem(str(car.date_of_access)))
+
+    def load_cars(self):
+        position = 0
+        amount_of_cars = controller_parking_lot.amount_of_cars()
+        while position != amount_of_cars:
+            for car in controller_parking_lot.parking_lot.cars:
+                self.load_data(car, position)
+                position += 1

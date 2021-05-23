@@ -1,10 +1,9 @@
 class Car():
-    def __init__(self, car_brand, car_type, car_id, date_of_access, time_on_parking_lot):
+    def __init__(self, car_brand, car_type, car_id, date_of_access):
         self.__car_brand = car_brand
         self.__car_type = car_type
         self.__car_id = car_id
         self.__date_of_access = date_of_access
-        self.__time_on_parking_lot = time_on_parking_lot
 
     @property
     def car_brand(self):
@@ -38,10 +37,4 @@ class Car():
     def date_of_access(self, date_of_access):
         self.__date_of_access = date_of_access
 
-    @property
-    def time_on_parking_lot(self):
-        return self.__time_on_parking_lot
 
-    @time_on_parking_lot.setter
-    def time_on_parking_lot(self, time_on_parking_lot):
-        self.__time_on_parking_lot = time_on_parking_lot
